@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bistrot La Pineta — Santa Maria Maggiore</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pine-deep: #1F3326;
+    --pine-mid: #2C4531;
+    --bark: #4A3A2A;
+    --cream: #F3EEE1;
+    --cream-soft: #EAE2CE;
+    --amber: #B98A3E;
+    --amber-light: #D3A85C;
+    --stone: #8C9188;
+    --ink: #1B241C;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .display {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .eyebrow {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 500;
+    opacity: 0.75;
+  }
+
+  /* ===== Topographic contour motif (signature element) ===== */
+  .contour-divider {
+    width: 100%;
+    height: 64px;
+    display: block;
+  }
+
+  /* ===== NAV ===== */
+  header.nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px clamp(20px, 5vw, 64px);
+    background: rgba(31, 51, 38, 0.0);
+    transition: background 0.4s ease, padding 0.4s ease;
+  }
+  header.nav.scrolled {
+    background: rgba(31, 51, 38, 0.92);
+    backdrop-filter: blur(6px);
+    padding: 14px clamp(20px, 5vw, 64px);
+  }
+  .nav-brand {
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--cream);
+    letter-spacing: 0.01em;
+  }
+  .nav-brand span { color: var(--amber-light); font-style: italic; font-weight: 500; }
+  .nav-links {
+    display: flex;
+    gap: clamp(16px, 3vw, 34px);
+    font-size: 0.85rem;
+    color: var(--cream-soft);
+  }
+  .nav-links a { opacity: 0.85; transition: opacity 0.2s; }
+  .nav-links a:hover { opacity: 1; color: var(--amber-light); }
+  .nav-links a.cta {
+    border: 1px solid var(--amber-light);
+    padding: 8px 18px;
+    border-radius: 100px;
+    opacity: 1;
+  }
+  .nav-links a.cta:hover { background: var(--amber-light); color: var(--pine-deep); }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    background: radial-gradient(ellipse at 30% -10%, #2E4A36 0%, var(--pine-deep) 55%, #142019 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 24px 100px;
+    overflow: hidden;
+  }
+
+  .pine-silhouette {
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    opacity: 0.9;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    max-width: 780px;
+  }
+
+  .hero .eyebrow { color: var(--amber-light); margin-bottom: 22px; display: inline-block; }
+
+  .hero h1 {
+    color: var(--cream);
+    font-size: clamp(3rem, 8vw, 5.6rem);
+    line-height: 0.98;
+    margin-bottom: 8px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--amber-light);
+  }
+
+  .hero-sub {
+    color: var(--cream-soft);
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    max-width: 480px;
+    margin: 26px auto 40px;
+    opacity: 0.9;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 15px 30px;
+    border-radius: 100px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+    border: 1px solid transparent;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary {
+    background: var(--amber-light);
+    color: var(--pine-deep);
+    box-shadow: 0 8px 24px rgba(211, 168, 92, 0.25);
+  }
+  .btn-primary:hover { box-shadow: 0 12px 28px rgba(211, 168, 92, 0.4); }
+  .btn-ghost {
+    border-color: rgba(243, 238, 225, 0.35);
+    color: var(--cream);
+  }
+  .btn-ghost:hover { border-color: var(--cream); }
+
+  .rating-chip {
+    position: absolute;
+    top: 128px;
+    right: clamp(20px, 6vw, 90px);
+    z-index: 3;
+    background: rgba(243, 238, 225, 0.08);
+    border: 1px solid rgba(211, 168, 92, 0.4);
+    border-radius: 16px;
+    padding: 14px 20px;
+    text-align: center;
+    backdrop-filter: blur(4px);
+  }
+  .rating-chip .num { font-family: 'Fraunces', serif; font-size: 1.8rem; color: var(--amber-light); font-weight: 600; }
+  .rating-chip .stars { color: var(--amber-light); font-size: 0.8rem; letter-spacing: 2px; margin: 2px 0; }
+  .rating-chip .label { font-size: 0.68rem; color: var(--cream-soft); text-transform: uppercase; letter-spacing: 0.1em; }
+
+  @media (max-width: 760px) {
+    .rating-chip { position: static; margin: 30px auto 0; width: fit-content; }
+  }
+
+  /* ===== SECTION shared ===== */
+  section { position: relative; padding: 110px 24px; }
+  .section-inner { max-width: 1080px; margin: 0 auto; }
+  .section-head { max-width: 620px; margin-bottom: 60px; }
+  .section-head .eyebrow { color: var(--amber); }
+  .section-head h2 { font-size: clamp(2rem, 4vw, 2.8rem); margin-top: 14px; color: var(--pine-deep); }
+
+  /* ===== ATMOSPHERE ===== */
+  .atmosphere { background: var(--cream); }
+  .atmosphere-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 70px;
+    align-items: center;
+  }
+  .atmosphere p {
+    font-size: 1.05rem;
+    color: var(--ink);
+    opacity: 0.85;
+    margin-bottom: 20px;
+    max-width: 46ch;
+  }
+  .atmosphere-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 30px;
+  }
+  .tag {
+    font-size: 0.78rem;
+    padding: 8px 16px;
+    border: 1px solid rgba(31, 51, 38, 0.2);
+    border-radius: 100px;
+    color: var(--pine-mid);
+    background: rgba(255,255,255,0.4);
+  }
+
+  .art-panel {
+    aspect-ratio: 4/5;
+    border-radius: 22px;
+    background: linear-gradient(160deg, #33502F 0%, #1F3326 70%);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 30px 60px -20px rgba(31, 51, 38, 0.4);
+  }
+
+  /* ===== INFO / VISIT ===== */
+  .visit { background: var(--pine-deep); color: var(--cream); }
+  .visit .section-head h2 { color: var(--cream); }
+  .visit .section-head .eyebrow { color: var(--amber-light); }
+  .visit-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(243, 238, 225, 0.12);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(243, 238, 225, 0.12);
+  }
+  .visit-card {
+    background: #1B2B21;
+    padding: 42px 34px;
+  }
+  .visit-card .ic {
+    width: 34px; height: 34px;
+    margin-bottom: 22px;
+    color: var(--amber-light);
+  }
+  .visit-card h3 {
+    font-size: 1.15rem;
+    margin-bottom: 12px;
+    color: var(--cream);
+    font-weight: 500;
+    font-style: italic;
+  }
+  .visit-card p, .visit-card a.link {
+    font-size: 0.92rem;
+    color: var(--cream-soft);
+    opacity: 0.85;
+  }
+  .visit-card a.link {
+    display: inline-block;
+    margin-top: 14px;
+    opacity: 1;
+    border-bottom: 1px solid var(--amber-light);
+    color: var(--amber-light);
+    padding-bottom: 2px;
+  }
+  @media (max-width: 800px) {
+    .visit-grid { grid-template-columns: 1fr; }
+    .atmosphere-grid { grid-template-columns: 1fr; }
+    .art-panel { order: -1; aspect-ratio: 16/9; }
+  }
+
+  /* ===== REVIEWS ===== */
+  .reviews { background: var(--cream); }
+  .reviews-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 60px;
+  }
+  .big-rating {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+  }
+  .big-rating .n { font-family: 'Fraunces', serif; font-size: 4.2rem; font-weight: 600; color: var(--pine-deep); }
+  .big-rating .stars { color: var(--amber); font-size: 1.1rem; letter-spacing: 3px; }
+  .big-rating .count { font-size: 0.85rem; opacity: 0.6; display: block; margin-top: 4px; }
+
+  .review-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+  .review-card {
+    background: var(--cream-soft);
+    border-radius: 18px;
+    padding: 36px;
+    border: 1px solid rgba(31,51,38,0.08);
+  }
+  .review-card .stars { color: var(--amber); font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 16px; display: block; }
+  .review-card p { font-size: 1rem; font-style: italic; color: var(--ink); opacity: 0.88; margin-bottom: 20px; font-family: 'Fraunces', serif; font-weight: 400; line-height: 1.55; }
+  .review-card .who { font-size: 0.82rem; color: var(--pine-mid); font-weight: 500; }
+  .review-card .who span { opacity: 0.6; font-weight: 400; }
+
+  @media (max-width: 720px) { .review-cards { grid-template-columns: 1fr; } }
+
+  /* ===== FOOTER / CTA ===== */
+  footer {
+    background: var(--bark);
+    color: var(--cream-soft);
+    padding: 90px 24px 40px;
+    text-align: center;
+  }
+  footer h2 {
+    color: var(--cream);
+    font-size: clamp(1.9rem, 4vw, 3rem);
+    margin-bottom: 26px;
+  }
+  footer h2 em { color: var(--amber-light); font-style: italic; }
+  .footer-actions { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 70px; }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(243, 238, 225, 0.15);
+    font-size: 0.78rem;
+    opacity: 0.6;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  /* reveal on scroll */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  a:focus-visible, .btn:focus-visible { outline: 2px solid var(--amber-light); outline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<header class="nav" id="siteNav">
+  <div class="nav-brand">bistrot <span>la pineta</span></div>
+  <nav class="nav-links">
+    <a href="#atmosfera">L'atmosfera</a>
+    <a href="#recensioni">Recensioni</a>
+    <a href="tel:+393711353271" class="cta">371 135 3271</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <svg class="pine-silhouette" viewBox="0 0 1440 260" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#152018" d="M0 260V150l60-90 40 50 50-110 55 90 35-40 45 70 30-30 40 60 60-100 50 80 40-30 55 70 40-50 45 40 50-90 60 100 40-20 50 60 60-40 40 30 45-70 55 50 30-20 40 40V260H0Z"/>
+    <path fill="#1B2B21" d="M0 260v-70l70-60 45 40 60-90 50 70 40-30 55 60 35-50 45 45 50-70 60 80 40-25 55 55 40-35 50 30 45-60 60 70 35-20 55 40 40-30 50 50V260H0Z" opacity="0.85"/>
+  </svg>
+  <div class="rating-chip">
+    <div class="num">5,0</div>
+    <div class="stars">★★★★★</div>
+    <div class="label">2 recensioni</div>
+  </div>
+  <div class="hero-content">
+    <span class="eyebrow">Santa Maria Maggiore · Val Vigezzo</span>
+    <h1>Bistrot<br><em>la pineta</em></h1>
+    <p class="hero-sub">Un bar caffè accogliente nel cuore della Valle Vigezzo, tra i pini e le montagne dell'Ossola. Il posto giusto per una sosta, un aperitivo o due chiacchiere in buona compagnia.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="https://www.google.com/maps/search/?api=1&query=BISTROT+la+pineta+Via+Chiara+Pace+Santa+Maria+Maggiore" target="_blank" rel="noopener">Come raggiungerci</a>
+      <a class="btn btn-ghost" href="tel:+393711353271">Chiama ora</a>
+    </div>
+  </div>
+</section>
+
+<svg class="contour-divider" viewBox="0 0 1440 64" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0 20 Q 180 0 360 24 T 720 20 T 1080 26 T 1440 16" stroke="#B98A3E" stroke-width="1" fill="none" opacity="0.5"/>
+  <path d="M0 34 Q 200 12 400 38 T 760 34 T 1100 40 T 1440 30" stroke="#2C4531" stroke-width="1" fill="none" opacity="0.4"/>
+  <path d="M0 48 Q 220 28 420 50 T 780 46 T 1120 52 T 1440 44" stroke="#B98A3E" stroke-width="1" fill="none" opacity="0.25"/>
+</svg>
+
+<section class="atmosphere" id="atmosfera">
+  <div class="section-inner">
+    <div class="atmosphere-grid">
+      <div class="reveal">
+        <span class="eyebrow" style="color: var(--amber);">L'atmosfera</span>
+        <h2 style="margin-top:14px; margin-bottom:26px;">Una sosta calda,<br>a due passi dal bosco</h2>
+        <p>Santa Maria Maggiore è il paese principale della Val Vigezzo, la "valle dei pittori", circondata da boschi di pini e montagne dell'Ossola. Il Bistrot La Pineta è il rifugio ideale dopo una passeggiata: un bancone caldo, un caffè ben fatto e un servizio attento, per chi cerca genuinità più che formalità.</p>
+        <p>Consumazione sul posto, in un ambiente pensato per chi vive il paese con calma — vigezzini di sempre e chi arriva da fuori per la prima volta.</p>
+        <div class="atmosphere-tags">
+          <span class="tag">Bar caffè</span>
+          <span class="tag">Colazioni</span>
+          <span class="tag">Aperitivi</span>
+          <span class="tag">Consumazione sul posto</span>
+        </div>
+      </div>
+      <div class="art-panel reveal">
+        <svg width="100%" height="100%" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="skyfade" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#D3A85C" stop-opacity="0.35"/>
+              <stop offset="100%" stop-color="#1F3326" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <rect width="400" height="500" fill="url(#skyfade)"/>
+          <g fill="#0F1912">
+            <path d="M60 500V370l25-40 18 22 22-48 24 40 15-18 20 30 13-13 18 26 26-44 22 34 18-13 24 30 17-22 20 18 22-40 26 44 17-9 22 26 26-18 17 13 20-30 24 22 13-9 17 18V500Z"/>
+          </g>
+          <g fill="#233A29">
+            <path d="M0 500V400l32-52 24 28 28-62 30 50 20-24 26 38 17-17 24 34 33-56 28 44 22-17 30 38 22-28 26 22 28-50 34 56 22-11 28 32 33-22 22 17 26-38 30 28V500Z" opacity="0.9"/>
+          </g>
+          <circle cx="300" cy="90" r="46" fill="#D3A85C" opacity="0.5"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="visit">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <span class="eyebrow">Informazioni</span>
+      <h2>Trovaci in paese</h2>
+    </div>
+    <div class="visit-grid reveal">
+      <div class="visit-card">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+        <h3>Indirizzo</h3>
+        <p>Via Chiara Pace<br>28857 Santa Maria Maggiore, VB<br>Provincia del Verbano-Cusio-Ossola</p>
+        <a class="link" href="https://www.google.com/maps/search/?api=1&query=BISTROT+la+pineta+Via+Chiara+Pace+Santa+Maria+Maggiore" target="_blank" rel="noopener">Apri in Google Maps →</a>
+      </div>
+      <div class="visit-card">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.6 10.8a15.3 15.3 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11 11 0 0 0 3.4.55 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11 11 0 0 0 .55 3.4 1 1 0 0 1-.25 1Z"/></svg>
+        <h3>Telefono</h3>
+        <p>Chiamaci per prenotazioni o informazioni sugli orari di apertura</p>
+        <a class="link" href="tel:+393711353271">371 135 3271 →</a>
+      </div>
+      <div class="visit-card">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>
+        <h3>Servizio</h3>
+        <p>Bar caffè con consumazione sul posto. Orari soggetti a stagionalità: ti consigliamo di chiamare prima di passare.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="reviews" id="recensioni">
+  <div class="section-inner">
+    <div class="reviews-head reveal">
+      <div>
+        <span class="eyebrow" style="color:var(--amber);">Cosa dicono di noi</span>
+        <div class="big-rating" style="margin-top:14px;">
+          <span class="n">5,0</span>
+          <div>
+            <span class="stars">★★★★★</span>
+            <span class="count">2 recensioni su Google</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="review-cards reveal">
+      <div class="review-card">
+        <span class="stars">★★★★★</span>
+        <p>"Federica è una persona fantastica e professionale, sempre attenta alle esigenze della clientela. Martina è molto brava e seria nel suo lavoro."</p>
+        <div class="who">Stefania Vescio <span>· Google</span></div>
+      </div>
+      <div class="review-card">
+        <span class="stars">★★★★★</span>
+        <p>"Molto accogliente: ci siamo divertiti tanto e abbiamo mangiato molto bene."</p>
+        <div class="who">Ergys Estrefi <span>· Local Guide, Google</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <h2>Ti aspettiamo tra<br>i pini della <em>Vigezzo</em></h2>
+  <div class="footer-actions">
+    <a class="btn btn-primary" href="tel:+393711353271">371 135 3271</a>
+    <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&query=BISTROT+la+pineta+Via+Chiara+Pace+Santa+Maria+Maggiore" target="_blank" rel="noopener">Indicazioni stradali</a>
+  </div>
+  <div class="footer-bottom">
+    <span>Bistrot La Pineta · Via Chiara Pace, 28857 Santa Maria Maggiore (VB)</span>
+    <span>Bar caffè · Consumazione sul posto</span>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('siteNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  reveals.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
